@@ -19,8 +19,8 @@ resource "aws_instance" "first_app" {
   key_name  = aws_key_pair.generated_key.key_name
   subnet_id = aws_subnet.private_a.id
 
-  security_groups      = [aws_security_group.sg-ec2.id]
-  iam_instance_profile = aws_iam_instance_profile.ec2-iam-profile.id
+  iam_instance_profile   = aws_iam_instance_profile.ec2-iam-profile.id
+  vpc_security_group_ids = [aws_security_group.sg-ec2.id]
 
   root_block_device {
     volume_size           = 20
@@ -33,6 +33,7 @@ resource "aws_instance" "first_app" {
   tags = {
     Name = "${var.stackid_tf}-first-app"
   }
+
 }
 
 resource "aws_instance" "second_app" {
@@ -42,8 +43,8 @@ resource "aws_instance" "second_app" {
   key_name  = aws_key_pair.generated_key.key_name
   subnet_id = aws_subnet.private_b.id
 
-  iam_instance_profile = aws_iam_instance_profile.ec2-iam-profile.id
-  security_groups      = [aws_security_group.sg-ec2.id]
+  iam_instance_profile   = aws_iam_instance_profile.ec2-iam-profile.id
+  vpc_security_group_ids = [aws_security_group.sg-ec2.id]
 
   root_block_device {
     volume_size           = 20
