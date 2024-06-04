@@ -28,21 +28,6 @@ resource "aws_instance" "first_app" {
     delete_on_termination = true
   }
 
-  # ebs_block_device {
-  #   device_name           = "/dev/sdh"
-  #   volume_size           = 80
-  #   volume_type           = "gp3"
-  #   delete_on_termination = true
-  # }
-
-  # user_data = <<-EOF
-  #             #!/bin/bash
-  #             sudo apt update
-  #             sudo apt install -y nginx
-  #             sudo systemctl start nginx
-  #             sudo systemctl enable nginx
-  #             EOF
-
   user_data = file(var.user_data)
 
   tags = {
@@ -66,20 +51,6 @@ resource "aws_instance" "second_app" {
     delete_on_termination = true
   }
 
-  # ebs_block_device {
-  #   device_name           = "/dev/sdh"
-  #   volume_size           = 80
-  #   volume_type           = "gp3"
-  #   delete_on_termination = true
-  # }
-
-  # user_data = <<-EOF
-  #             #!/bin/bash
-  #             sudo apt update
-  #             sudo apt install -y nginx
-  #             sudo systemctl start nginx
-  #             sudo systemctl enable nginx
-  #             EOF
   user_data = file(var.user_data)
 
   tags = {

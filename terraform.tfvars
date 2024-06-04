@@ -2,7 +2,7 @@ default_tags = {
   Application = "UNINA",
   Environment = "Example",
   Owner       = "giuseppedp",
-  CostCenter  = "nada",
+  CostCenter  = "example",
   Provider    = "Terraform",
   Schedule    = "nada",
   AWSBackup   = "nada",
@@ -25,7 +25,6 @@ vpc = {
   az-b = "eu-west-1b"
   az-c = "eu-west-1c"
   }
-  
 }
 
 key_pair_name = "UNINA-key-name"
