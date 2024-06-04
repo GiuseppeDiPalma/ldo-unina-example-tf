@@ -27,7 +27,7 @@ vpc = {
   }
 }
 
-key_pair_name = "UNINA-key-name"
+key_pair_name = "UNINA-keypair"
 
 user_data = "user-data.sh"
 
