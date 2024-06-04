@@ -1,7 +1,7 @@
 # UNINA AUTOMATION TERRAFOM EXAMPLE - DEMO
 ## Schema infrastruttura
 
-![Alt Text]()
+![1-GIF Infrastruttura](img/aws-unina-tf-example.gif)
 
 ## Passi
 1. Download Terraform
