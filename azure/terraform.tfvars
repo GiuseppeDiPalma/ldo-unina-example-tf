@@ -5,7 +5,7 @@ default_tags = {
   CostCenter  = "Example",
   Provider    = "Terraform",
   Schedule    = "no",
-  AWSBackup   = "no",
+  AzBackup   = "no",
   PatchGroup  = "no",
 }
 
