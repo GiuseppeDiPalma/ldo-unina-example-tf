@@ -7,7 +7,7 @@
 
 ## Schema infrastruttura
 
-![1-GIF Infrastruttura](img/aws-unina-tf-example.gif)
+![1-GIF Infrastruttura](aws/img/aws-unina-tf-example.gif)
 
 ## Passi
 1. Download Terraform
