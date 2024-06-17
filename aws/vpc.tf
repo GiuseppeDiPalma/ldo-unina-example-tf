@@ -60,17 +60,6 @@ resource "aws_subnet" "public_b" {
   }
 }
 
-# resource "aws_subnet" "public_c" {
-#   vpc_id                  = aws_vpc.vpc.id
-#   cidr_block              = var.vpc.subnet_public_c_cidr_block_range
-#   map_public_ip_on_launch = "true"
-#   availability_zone       = var.availability_zones["az-c"]
-#   tags = {
-#     Name = "${var.stackid_tf}-public_c"
-#     Type = "Public"
-#   }
-# }
-
 resource "aws_subnet" "private_a" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = var.vpc.subnet_private_a_cidr_block_range
@@ -93,49 +82,38 @@ resource "aws_subnet" "private_b" {
   }
 }
 
-# resource "aws_subnet" "private_c" {
+# resource "aws_subnet" "db_a" {
 #   vpc_id                  = aws_vpc.vpc.id
-#   cidr_block              = var.vpc.subnet_private_c_cidr_block_range
+#   cidr_block              = var.vpc.subnet_db_a_cidr_block_range
 #   map_public_ip_on_launch = "false"
-#   availability_zone       = var.availability_zones["az-c"]
+#   availability_zone       = var.vpc.availability_zones["az-a"]
 #   tags = {
-#     Name = "${var.stackid_tf}-private_c"
+#     Name = "${var.stackid_tf}-db_a"
 #     Type = "Private"
 #   }
 # }
 
-resource "aws_subnet" "db_a" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.vpc.subnet_db_a_cidr_block_range
-  map_public_ip_on_launch = "false"
-  availability_zone       = var.vpc.availability_zones["az-a"]
-  tags = {
-    Name = "${var.stackid_tf}-db_a"
-    Type = "Private"
-  }
-}
-
-resource "aws_subnet" "db_b" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.vpc.subnet_db_b_cidr_block_range
-  map_public_ip_on_launch = "false"
-  availability_zone       = var.vpc.availability_zones["az-b"]
-  tags = {
-    Name = "${var.stackid_tf}-db_b"
-    Type = "Private"
-  }
-}
-
-# resource "aws_subnet" "db_c" {
+# resource "aws_subnet" "db_b" {
 #   vpc_id                  = aws_vpc.vpc.id
-#   cidr_block              = var.vpc.subnet_db_c_cidr_block_range
+#   cidr_block              = var.vpc.subnet_db_b_cidr_block_range
 #   map_public_ip_on_launch = "false"
-#   availability_zone       = var.availability_zones["az-c"]
+#   availability_zone       = var.vpc.availability_zones["az-b"]
 #   tags = {
-#     Name = "${var.stackid_tf}-db_c"
+#     Name = "${var.stackid_tf}-db_b"
 #     Type = "Private"
 #   }
 # }
+
+# # resource "aws_subnet" "db_c" {
+# #   vpc_id                  = aws_vpc.vpc.id
+# #   cidr_block              = var.vpc.subnet_db_c_cidr_block_range
+# #   map_public_ip_on_launch = "false"
+# #   availability_zone       = var.availability_zones["az-c"]
+# #   tags = {
+# #     Name = "${var.stackid_tf}-db_c"
+# #     Type = "Private"
+# #   }
+# # }
 
 resource "aws_route_table" "rtb_public" {
   vpc_id = aws_vpc.vpc.id
@@ -191,24 +169,24 @@ resource "aws_route_table_association" "rta_subnet_private_b" {
 #   route_table_id = aws_route_table.rtb_private.id
 # }
 
-resource "aws_route_table" "rtb_db" {
-  vpc_id = aws_vpc.vpc.id
+# resource "aws_route_table" "rtb_db" {
+#   vpc_id = aws_vpc.vpc.id
 
-  tags = {
-    Name = "${var.stackid_tf}-db_rtb"
-    Type = "Private"
-  }
-}
+#   tags = {
+#     Name = "${var.stackid_tf}-db_rtb"
+#     Type = "Private"
+#   }
+# }
 
-resource "aws_route_table_association" "rta_subnet_db_a" {
-  subnet_id      = aws_subnet.db_a.id
-  route_table_id = aws_route_table.rtb_db.id
-}
+# resource "aws_route_table_association" "rta_subnet_db_a" {
+#   subnet_id      = aws_subnet.db_a.id
+#   route_table_id = aws_route_table.rtb_db.id
+# }
 
-resource "aws_route_table_association" "rta_subnet_db_b" {
-  subnet_id      = aws_subnet.db_b.id
-  route_table_id = aws_route_table.rtb_db.id
-}
+# resource "aws_route_table_association" "rta_subnet_db_b" {
+#   subnet_id      = aws_subnet.db_b.id
+#   route_table_id = aws_route_table.rtb_db.id
+# }
 
 # resource "aws_route_table_association" "rta_subnet_db_c" {
 #   subnet_id      = aws_subnet.db_c.id
