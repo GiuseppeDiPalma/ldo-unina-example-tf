@@ -4,13 +4,11 @@ resource "random_string" "my_resource_group" {
   special = false
 }
 
-# Create Resource Group
 resource "azurerm_resource_group" "my_resource_group" {
   name     = "${var.public_ip_name}-${random_string.my_resource_group.result}"
   location = var.resource_group_location
 }
 
-# Create Virtual Network
 resource "azurerm_virtual_network" "my_virtual_network" {
   name                = var.virtual_network_name
   address_space       = ["10.0.0.0/16"]
@@ -18,7 +16,6 @@ resource "azurerm_virtual_network" "my_virtual_network" {
   resource_group_name = azurerm_resource_group.my_resource_group.name
 }
 
-# Create a subnet in the Virtual Network
 resource "azurerm_subnet" "my_subnet" {
   name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.my_resource_group.name
@@ -26,7 +23,6 @@ resource "azurerm_subnet" "my_subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-# Create a subnet named as "AzureBastionSubnet" in the Virtual Network for creating Azure Bastion
 resource "azurerm_subnet" "my_bastion_subnet" {
   name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.my_resource_group.name
@@ -34,7 +30,6 @@ resource "azurerm_subnet" "my_bastion_subnet" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-# Create Network Security Group and rules
 resource "azurerm_network_security_group" "my_nsg" {
   name                = var.network_security_group_name
   location            = azurerm_resource_group.my_resource_group.location
@@ -65,13 +60,11 @@ resource "azurerm_network_security_group" "my_nsg" {
   }
 }
 
-# Associate the Network Security Group to the subnet
 resource "azurerm_subnet_network_security_group_association" "my_nsg_association" {
   subnet_id                 = azurerm_subnet.my_subnet.id
   network_security_group_id = azurerm_network_security_group.my_nsg.id
 }
 
-# Create Public IPs
 resource "azurerm_public_ip" "my_public_ip" {
   count               = 2
   name                = "${var.public_ip_name}-${count.index}"
@@ -81,7 +74,6 @@ resource "azurerm_public_ip" "my_public_ip" {
   sku                 = "Standard"
 }
 
-# Create a NAT Gateway for outbound internet access of the Virtual Machines in the Backend Pool of the Load Balancer
 resource "azurerm_nat_gateway" "my_nat_gateway" {
   name                = var.nat_gateway
   location            = azurerm_resource_group.my_resource_group.location
@@ -89,19 +81,16 @@ resource "azurerm_nat_gateway" "my_nat_gateway" {
   sku_name            = "Standard"
 }
 
-# Associate one of the Public IPs to the NAT Gateway
 resource "azurerm_nat_gateway_public_ip_association" "my_nat_gateway_ip_association" {
   nat_gateway_id       = azurerm_nat_gateway.my_nat_gateway.id
   public_ip_address_id = azurerm_public_ip.my_public_ip[0].id
 }
 
-# Associate the NAT Gateway to subnet
 resource "azurerm_subnet_nat_gateway_association" "my_nat_gateway_subnet_association" {
   subnet_id      = azurerm_subnet.my_subnet.id
   nat_gateway_id = azurerm_nat_gateway.my_nat_gateway.id
 }
 
-# Create Network Interfaces
 resource "azurerm_network_interface" "my_nic" {
   count               = 3
   name                = "${var.network_interface_name}-${count.index}"
@@ -116,7 +105,6 @@ resource "azurerm_network_interface" "my_nic" {
   }
 }
 
-# Create Azure Bastion for accessing the Virtual Machines
 resource "azurerm_bastion_host" "my_bastion" {
   name                = var.bastion_name
   location            = azurerm_resource_group.my_resource_group.location
@@ -130,7 +118,6 @@ resource "azurerm_bastion_host" "my_bastion" {
   }
 }
 
-# Associate Network Interface to the Backend Pool of the Load Balancer
 resource "azurerm_network_interface_backend_address_pool_association" "my_nic_lb_pool" {
   count                   = 2
   network_interface_id    = azurerm_network_interface.my_nic[count.index].id
@@ -138,7 +125,6 @@ resource "azurerm_network_interface_backend_address_pool_association" "my_nic_lb
   backend_address_pool_id = azurerm_lb_backend_address_pool.my_lb_pool.id
 }
 
-# Create Virtual Machine
 resource "azurerm_linux_virtual_machine" "my_vm" {
   count                 = 3
   name                  = "${var.virtual_machine_name}-${count.index}"
@@ -166,7 +152,6 @@ resource "azurerm_linux_virtual_machine" "my_vm" {
 
 }
 
-# Enable virtual machine extension and install Nginx
 resource "azurerm_virtual_machine_extension" "my_vm_extension" {
   count                = 2
   name                 = "Nginx"
@@ -183,7 +168,6 @@ SETTINGS
 
 }
 
-# Create an Internal Load Balancer
 resource "azurerm_lb" "my_lb" {
   name                = var.load_balancer_name
   location            = azurerm_resource_group.my_resource_group.location
