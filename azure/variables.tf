@@ -1,24 +1,95 @@
-variable "region" {
-  description = "The AWS region to deploy to"
+variable "resource_group_location" {
+  type        = string
+  default     = "italynorth"
+  description = "Location of the resource group."
 }
 
-variable "vpc" {
-  description = "All value related to the VPC"
+variable "resource_group_name" {
+  type        = string
+  default     = "UNINA"
+  description = "Name of the resource group."
 }
 
-variable "default_tags" {
-  description = "A map of tags to apply to all resources"
-  type        = map(string)
+variable "username" {
+  type        = string
+  default     = "microsoft"
+  description = "The username for the local account that will be created on the new VM."
 }
 
-variable "stackid_tf" {
-  description = "The stack id to use for all resources"
+variable "password" {
+  type        = string
+  default     = "Microsoft@123"
+  description = "The passoword for the local account that will be created on the new VM."
 }
 
-variable "key_pair_name" {
-  description = "The name of the key pair to use for the EC2 instances"
+variable "virtual_network_name" {
+  type        = string
+  default     = "test-vnet"
+  description = "Name of the Virtual Network."
 }
 
-variable "user_data" {
-  description = "The path to the user data script to use for the EC2 instances"
+variable "subnet_name" {
+  type        = string
+  default     = "test-subnet"
+  description = "Name of the subnet."
+}
+
+variable "public_ip_name" {
+  type        = string
+  default     = "test-public-ip"
+  description = "Name of the Public IP for the NAT Gateway."
+}
+
+variable "nat_gateway" {
+  type        = string
+  default     = "test-nat"
+  description = "Name of the NAT gateway."
+}
+
+variable "bastion_name" {
+  type        = string
+  default     = "test-bastion"
+  description = "Name of the Bastion."
+}
+
+variable "network_security_group_name" {
+  type        = string
+  default     = "test-nsg"
+  description = "Name of the Network Security Group."
+}
+
+variable "network_interface_name" {
+  type        = string
+  default     = "test-nic"
+  description = "Name of the Network Interface."
+}
+
+variable "virtual_machine_name" {
+  type        = string
+  default     = "test-vm"
+  description = "Name of the Virtual Machine."
+}
+
+variable "virtual_machine_size" {
+  type        = string
+  default     = "Standard_B2s"
+  description = "Size or SKU of the Virtual Machine."
+}
+
+variable "disk_name" {
+  type        = string
+  default     = "test-disk"
+  description = "Name of the OS disk of the Virtual Machine."
+}
+
+variable "redundancy_type" {
+  type        = string
+  default     = "Standard_LRS"
+  description = "Storage redundancy type of the OS disk."
+}
+
+variable "load_balancer_name" {
+  type        = string
+  default     = "test-lb"
+  description = "Name of the Load Balancer."
 }

@@ -1,4 +1,3 @@
-output "az_public_ip" {
-  description = "The public IP address of the Azure VM"
-  value       = azurerm_public_ip.public_ip.ip_address
+output "private_ip_address" {
+  value = "http://${azurerm_lb.my_lb.private_ip_address}"
 }
