@@ -1,8 +1,8 @@
-resource "random_string" "my_resource_group" {
-  length  = 8
-  upper   = false
-  special = false
-}
+# resource "random_string" "my_resource_group" {
+#   length  = 8
+#   upper   = false
+#   special = false
+# }
 
 resource "azurerm_resource_group" "my_resource_group" {
   name     = var.resource_group_name
