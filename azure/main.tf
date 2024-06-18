@@ -5,7 +5,7 @@ resource "random_string" "my_resource_group" {
 }
 
 resource "azurerm_resource_group" "my_resource_group" {
-  name     = "${var.public_ip_name}-${random_string.my_resource_group.result}"
+  name     = "unina-demo-rg"
   location = var.resource_group_location
 }
 
