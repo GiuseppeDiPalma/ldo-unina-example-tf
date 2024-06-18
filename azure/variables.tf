@@ -6,7 +6,7 @@ variable "resource_group_location" {
 
 variable "resource_group_name" {
   type        = string
-  default     = "UNINA"
+  default     = "UNINA-TF-DEMO"
   description = "Name of the resource group."
 }
 
